@@ -1,0 +1,73 @@
+body {
+    background-color: #E2DFDF;
+    /* background-image: url("SVG/borne_arcadeFond.svg");
+    background-repeat: no-repeat;
+    background-size: 100vh;
+    background-position-x: left; */
+    overflow: hidden;
+} 
+*{
+    font-family: "cofo-sans-pixel", sans-serif;
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+#gameCanvas {
+    position: absolute;
+    top: 200px; /* Ajustez en fonction de la position de votre écran */
+    left: 150px;
+    width: 300px; /* Largeur exacte du petit écran */
+    height: 200px; /* Hauteur exacte du petit écran */
+    background-color: transparent;
+    border: 2px solid #999;
+}
+
+
+#carteGlobal {
+    text-align: center;
+    border: solid;
+    max-width: 25rem;
+}
+
+img {
+    width: 22rem;
+}
+
+/* Appliquer l'alignement à gauche pour les éléments après la note, j'essaye de nouvelles méthodes */
+#carteGlobal > div {
+    text-align: left;
+    margin-left: 1rem; 
+}
+
+/*les genres de jeu*/
+#categorie {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 0.5rem; 
+}
+
+#multi {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+#multijoueur {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color: white;
+    max-width: 30%;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+#multijoueur img {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem; /* Espacement entre l'icône et le texte */
+}
