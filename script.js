@@ -743,8 +743,30 @@ let jeux = [
     }
 ]
 
+const modeSwitch = document.getElementById('modeSwitch');
+let modeCarrouselActif = false;
 
-let afficherGrandeCarte = false
+modeSwitch.addEventListener('click', (e) => {
+    if (modeCarrouselActif === true) {
+        removePetiteCarte()
+        modeCarrouselActif = false
+        console.log('blabla');
+        petiteCarte()
+        
+    }
+    else {
+        removePetiteCarte()
+        modeCarrouselActif = true
+        console.log('switch2');
+        petiteCarte()
+    }
+    
+    
+});
+
+let afficherGrandeCarte = true
+let valeur;
+
 
 let ecran = document.getElementById('divEcran')
 
@@ -759,12 +781,12 @@ ecran.style.perspective = "800px";
 ecran.style.rotateX = '50%'
 
 
-if (afficherGrandeCarte === true) {
+function grandeCarte(jeu) {
 
-   jeux.forEach((jeu) => {
+    if (afficherGrandeCarte === true) {
     // Création de la carte
     let carte = document.createElement('div');
-    //carte.className = 
+    carte.className = 'grandeCarte'
     carte.style.border = '1px solid black';
     carte.style.padding = '1rem';
     carte.style.width = '200px';
@@ -796,21 +818,21 @@ if (afficherGrandeCarte === true) {
     let note = document.createElement('p');
     note.textContent = `Note : ${jeu.noteMoyenne}`;
     carte.appendChild(note);
-    
+
     //Ajout créateurs
     let createurs = document.createElement('div');
     let developpeur = document.createElement('h4');
     let editeur = document.createElement('h4');
     let compositeur = document.createElement('h4');
     let producteur = document.createElement('h4');
-    
+
     createurs.style.textAlign = 'left'
 
     developpeur.textContent = `Développeur : ${jeu.createurs.developpeur}`;
     editeur.textContent = `Éditeur : ${jeu.createurs.editeur}`;
     compositeur.textContent = `Compositeur : ${jeu.createurs.compositeur}`;
     producteur.textContent = `Producteur : ${jeu.createurs.producteur}`;
-    
+
     createurs.appendChild(developpeur);
     createurs.appendChild(editeur);
     createurs.appendChild(compositeur);
@@ -859,7 +881,7 @@ if (afficherGrandeCarte === true) {
     genresDiv.style.justifyContent = 'center'
     genresDiv.style.flexWrap= 'nowrap';
     genresDiv.style.gap = '1rem'
-    
+
     jeu.genre.forEach(function(genre) {
         let genreElement = document.createElement('h4');
         genreElement.textContent = `${genre}`;
@@ -879,18 +901,51 @@ if (afficherGrandeCarte === true) {
         imageMulti.src = "icones/solo.png";
     }
     multijoueur.appendChild(imageMulti);
-    carte.appendChild(multijoueur)
+    carte.appendChild(multijoueur);
 
-    ecran.appendChild(carte);
-});
- 
+    let global = document.getElementById('global');
+    global.appendChild(carte);
+    }; 
+    
+    
+
 }
 
-else {
+function removeGrandeCarte() {
+    let cartes = global.getElementsByClassName('grandeCarte')
+    console.log(cartes);
+    
+    while (cartes.length > 0) {
+        cartes[0].remove()
+    }
+}
+
+function removePetiteCarte() {
+    let cartes = global.getElementsByClassName('petiteCarte')
+    console.log(cartes);
+    
+    while (cartes.length > 0) {
+        cartes[0].remove()
+    }
+}
+
+function petiteCarte() {
     jeux.forEach((jeu) => {
-        // Création de la carte
-        let carte = document.createElement('div');
-        //carte.className = 
+    let carte = document.createElement('div');
+    carte.className = 'petiteCarte'
+    if (modeCarrouselActif === true) {
+        carte.style.border = '20px solid rgb(32, 32, 32)'
+        carte.style.padding = '0.5rem';
+        carte.style.width = '5rem';
+        carte.style.textAlign = 'center';
+        carte.style.borderRadius = '8px';
+        carte.style.display = 'flex';
+        carte.style.flexDirection = "column";
+        carte.style.justifyContent = "space-between"
+
+    }
+    else {
+
         carte.style.border = '2px solid rgb(32, 32, 32)'
         carte.style.padding = '0.5rem';
         carte.style.width = '5rem';
@@ -900,41 +955,65 @@ else {
         carte.style.flexDirection = "column";
         carte.style.justifyContent = "space-between"
         
+
+    }
     
-        //Ajout année
-        let anneeDeCreation = document.createElement('h2');
-        anneeDeCreation.textContent = jeu.anneeDeCreation;
-        anneeDeCreation.style.fontSize = '0.9rem'
-        anneeDeCreation.style.margin = "0.5rem";
-        anneeDeCreation.style.marginTop = "0rem";
-        anneeDeCreation.style.color = "rgb(32, 32, 32)"
-        carte.appendChild(anneeDeCreation);
+    
+    //Ajout année
+    let anneeDeCreation = document.createElement('h2');
+    anneeDeCreation.textContent = jeu.anneeDeCreation;
+    anneeDeCreation.style.fontSize = '0.9rem'
+    anneeDeCreation.style.margin = "0.5rem";
+    anneeDeCreation.style.marginTop = "0rem";
+    anneeDeCreation.style.color = "rgb(32, 32, 32)"
+    carte.appendChild(anneeDeCreation);
+    
+
+    // Ajout de l'image
+    let image = document.createElement('img');
+    image.src = jeu.srcImage;
+    image.alt = `Image de ${jeu.nom}`;
+    image.style.width = '95%';
+    image.style.height = '5rem'
+    image.style.marginRight = "100px"
+    image.style.borderRadius = '8px';
+    image.style.border ="solid 2px rgb(32, 32, 32)"
+    //image.style.boxShadow = "0.5rem 0.5rem #E2DFDF"
+    
+    carte.appendChild(image);
+
+    // Ajout du nom du jeu
+    let nom = document.createElement('h2');
+    nom.textContent = jeu.nom;
+    nom.style.fontSize = '0.8rem';
+    nom.style.marginBottom ='0.2rem'
+    carte.appendChild(nom);
+    ecran.appendChild(carte);
+    nom.style.color = 'rgb(32, 32, 32)'
+
+    carte.addEventListener('mouseenter', (e) => { //mouseover fonctionne pour tout les élément à l'intérieur de celui qu'on selectionne
+        grandeCarte(jeu)
+    });
+
+
+    carte.addEventListener('click', (e) => {
         
-    
-        // Ajout de l'image
-        let image = document.createElement('img');
-        image.src = jeu.srcImage;
-        image.alt = `Image de ${jeu.nom}`;
-        image.style.width = '95%';
-        image.style.height = '5rem'
-        image.style.marginRight = "100px"
-        image.style.borderRadius = '8px';
-        image.style.border ="solid 2px rgb(32, 32, 32)"
-        //image.style.boxShadow = "0.5rem 0.5rem #E2DFDF"
+        if (!valeur) {
+            grandeCarte(jeu)
+            valeur = jeu.nom
+        }
+        if (valeur === jeu.nom) {
+            removeGrandeCarte()
+        }
         
-        carte.appendChild(image);
-    
-        // Ajout du nom du jeu
-        let nom = document.createElement('h2');
-        nom.textContent = jeu.nom;
-        nom.style.fontSize = '0.8rem';
-        nom.style.marginBottom ='0.2rem'
-        carte.appendChild(nom);
-        ecran.appendChild(carte);
-        nom.style.color = 'rgb(32, 32, 32)'
 
     });
-     
- }
 
+    carte.addEventListener('mouseleave', (e) => {
+        removeGrandeCarte()
+    });
+});
+}
+
+petiteCarte()
 

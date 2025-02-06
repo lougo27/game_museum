@@ -12,6 +12,14 @@ body {
     font-style: normal;
 }
 
+#global {
+    display: flex;
+}
+
+#svg { 
+    max-width: min-content;
+}
+
 
 #gameCanvas {
     position: absolute;
