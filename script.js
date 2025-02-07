@@ -944,17 +944,49 @@ function petiteCarte() {
     let carte = document.createElement('div');
     carte.className = 'petiteCarte'
     if (modeCarrouselActif === true) {
-        carte.style.border = '20px solid rgb(32, 32, 32)'
+        // carte.style.border = '20px solid rgb(32, 32, 32)'
+        // carte.style.padding = '0.5rem';
+        // carte.style.width = '5rem';
+        // carte.style.textAlign = 'center';
+        // carte.style.borderRadius = '8px';
+        // carte.style.display = 'flex';
+        // carte.style.flexDirection = "column";
+        // carte.style.justifyContent = "space-between"
+        ecran.style.display = 'flex';
+        ecran.style.overflowX = 'scroll';
+        ecran.style.flexWrap = 'nowrap';
+        //ecran.style.scrollSnapType = 'x mandatory';
+        ecran.style.gap = '20px';
+        
+        ecran.style.alignItems = "center"
+        
+
+        carte.style.border = '2px solid rgb(32, 32, 32)'
         carte.style.padding = '0.5rem';
         carte.style.width = '5rem';
+        carte.style.height = '10rem'
         carte.style.textAlign = 'center';
         carte.style.borderRadius = '8px';
         carte.style.display = 'flex';
         carte.style.flexDirection = "column";
         carte.style.justifyContent = "space-between"
+        carte.style.justifyContent = "center"
+        //carte.style.margin = ''
+        
+
+        ajouterNavigation();
 
     }
     else {
+        ecran.style.display = 'flex';
+        ecran.style.flexWrap = 'wrap';
+        ecran.style.gap = '1rem';
+        ecran.style.justifyContent = 'center';
+        ecran.style.zIndex = 10;
+        ecran.style.overflow = 'hidden scroll'
+        ecran.style.perspective = "800px";
+        ecran.style.rotateX = '50%'
+
 
         carte.style.border = '2px solid rgb(32, 32, 32)'
         carte.style.padding = '0.5rem';
@@ -964,8 +996,8 @@ function petiteCarte() {
         carte.style.display = 'flex';
         carte.style.flexDirection = "column";
         carte.style.justifyContent = "space-between"
-        
 
+        supprimerNavigation();
     }
     
     
@@ -1024,5 +1056,47 @@ function petiteCarte() {
     });
 });
 }
+
+function ajouterNavigation() {
+    const boutonGauche = document.createElement('button');
+    const boutonDroit = document.createElement('button');
+    boutonGauche.textContent = '<';
+    boutonDroit.textContent = '>';
+
+    boutonGauche.style.position = boutonDroit.style.position = 'absolute';
+    boutonGauche.style.top = boutonDroit.style.top = '50%';
+    boutonGauche.style.transform = boutonDroit.style.transform = 'translateY(-50%)';
+    boutonGauche.style.left = '10px';
+    boutonDroit.style.right = '10px';
+
+    boutonGauche.style.zIndex = boutonDroit.style.zIndex = '100';
+    boutonGauche.style.backgroundColor = boutonDroit.style.backgroundColor = '#444';
+    boutonGauche.style.color = boutonDroit.style.color = 'white';
+    boutonGauche.style.border = boutonDroit.style.border = 'none';
+    boutonGauche.style.padding = boutonDroit.style.padding = '10px';
+    boutonGauche.style.cursor = boutonDroit.style.cursor = 'pointer';
+
+    boutonGauche.addEventListener('click', () => {
+        ecran.scrollBy({ left: -220, behavior: 'smooth' });
+    });
+
+    boutonDroit.addEventListener('click', () => {
+        ecran.scrollBy({ left: 220, behavior: 'smooth' });
+    });
+
+    ecran.parentElement.appendChild(boutonGauche);
+    ecran.parentElement.appendChild(boutonDroit);
+}
+
+function supprimerNavigation() {
+    const boutons = ecran.parentElement.querySelectorAll('button');
+    boutons.forEach(bouton => {
+        if (bouton.textContent === '<' || bouton.textContent === '>') {
+            bouton.remove();
+        }
+    });
+}
+
+
 
 petiteCarte()
