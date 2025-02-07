@@ -743,8 +743,15 @@ let jeux = [
     }
 ]
 
+// let modeSwitch = document.createElement('button')
+// bouton.getElementById = 'modeSwitch'
+// bouton.innerText = "Mode d'Affichage"
+// document.body.appendChild(bouton)
+
 const modeSwitch = document.getElementById('modeSwitch');
 let modeCarrouselActif = false;
+
+
 
 modeSwitch.addEventListener('click', (e) => {
     if (modeCarrouselActif === true) {
@@ -771,6 +778,7 @@ let valeur;
 let ecran = document.getElementById('divEcran')
 
 
+
 ecran.style.display = 'flex';
 ecran.style.flexWrap = 'wrap';
 ecran.style.gap = '1rem';
@@ -789,9 +797,10 @@ function grandeCarte(jeu) {
     carte.className = 'grandeCarte'
     carte.style.border = '1px solid black';
     carte.style.padding = '1rem';
-    carte.style.width = '200px';
+    carte.style.width = '30rem';
     carte.style.textAlign = 'center';
     carte.style.borderRadius = '8px';
+    carte.style.gap = '0.5rem'
 
     //Ajout année
     let anneeDeCreation = document.createElement('h2');
@@ -804,7 +813,7 @@ function grandeCarte(jeu) {
     image.src = jeu.srcImage;
     image.alt = `Image de ${jeu.nom}`;
     image.style.width = '100%';
-    image.style.height = '10rem'
+    image.style.height = '20rem'
     image.style.borderRadius = '8px';
     carte.appendChild(image);
 
@@ -821,6 +830,7 @@ function grandeCarte(jeu) {
 
     //Ajout créateurs
     let createurs = document.createElement('div');
+    createurs.style.display.inline
     let developpeur = document.createElement('h4');
     let editeur = document.createElement('h4');
     let compositeur = document.createElement('h4');
@@ -880,7 +890,7 @@ function grandeCarte(jeu) {
     genresDiv.style.display = 'flex';
     genresDiv.style.justifyContent = 'center'
     genresDiv.style.flexWrap= 'nowrap';
-    genresDiv.style.gap = '1rem'
+    genresDiv.style.gap = '0.5rem'
 
     jeu.genre.forEach(function(genre) {
         let genreElement = document.createElement('h4');
@@ -1016,4 +1026,3 @@ function petiteCarte() {
 }
 
 petiteCarte()
-
